@@ -1,4 +1,4 @@
-name: GitHub Actions Workshop
+name: GitHub Actions Workshop 2
 
 on:
   workflow_dispatch:
