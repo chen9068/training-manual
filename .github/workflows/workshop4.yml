@@ -1,0 +1,30 @@
+name: GitHub Actions Workshop 4
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secret-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify repository secret
+        env:
+          WORKSHOP_TOKEN: ${{ secrets.WORKSHOP_TOKEN }}
+        shell: bash
+        run: |
+          if [[ -z "$WORKSHOP_TOKEN" ]]; then
+            echo "::error::WORKSHOP_TOKEN is not configured"
+            exit 1
+          fi
+
+          echo "The secret is available to this step."
+          {
+            echo "# Secret check"
+            echo ""
+            echo "✅ \`WORKSHOP_TOKEN\` is configured."
+            echo ""
+            echo "The secret value was not printed."
+          } >> "$GITHUB_STEP_SUMMARY"
